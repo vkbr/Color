@@ -105,13 +105,29 @@
 	Color.prototype.toRgba = function(colorMode){
 		var th = this;
 
-		if (colorMode === CONST.colorModes.HEX) {
-			return th.toHex().toString();
-		} else if (colorMode === CONST.colorModes.RGB || (colorMode===undefined && (th.a===undefined || th.a===1))) {
+		if (colorMode === CONST.colorModes.RGB || (colorMode===undefined && (th.a===undefined || th.a===1))) {
 			return "rgb(" + th.r + "," + th.g + "," + th.b + ")"
 		} else if (colorMode === CONST.colorModes.RGBA || colorMode===undefined) {
-			return "rgba(" + th.r + "," + th.g + "," + th.b + (th.a != undefined ? th.a : 1) + ")"
+			return "rgba(" + th.r + "," + th.g + "," + th.b + "," + (th.a != undefined ? th.a : 1) + ")"
 		}
+	};
+
+	Color.prototype.equals = function(color){
+		var th = this;
+
+		if(typeof color == 'string') {
+			return th.equals(new Color(color));
+		}
+
+		if(color instanceof Color)
+			return (color.r===th.r && color.g===th.g && color.b===th.b && color.a===th.a);
+
+		console.warn("Unmatched type.");
+		return false;
+	};
+
+	Color.prototype.toString = function(){
+		return this.toHex.apply(this, arguments);
 	};
 
 	w.Color = Color;
