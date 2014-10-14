@@ -1,10 +1,9 @@
 !function(w){
 	var reg = {
-		RGB		: new RegExp(atob("cmdiXChcZCssID9cZCssID9cZCtcKQ==")), // rgb\(\d+, ?\d+, ?\d+\)
-		RGBA	: new RegExp(atob(atob("Y21kaVlWd29YR1FyTENBL1hHUXJMQ0EvWEdRckxDQS9XMXd1WEdSZEsxd3A="))), // rgba\(\d+, ?\d+, ?\d+, ?[\.\d]+\),
-		HEX		: new RegExp(atob("XigjW1xkYS1mXXszfXwjW1xkYS1mXXs2fSkk")), // ^(#[\da-f]{3}|#[\da-f]{6})$
-		rgbaSplit:new RegExp(atob("XGQrWywgP1wuP1xkK10r")), // \d+[, ?\.?\d+]+
-		hexSplit: new RegExp()
+		RGB		: /rgb\(\d+, ?\d+, ?\d+\)/,
+		RGBA	: /rgba\(\d+, ?\d+, ?\d+, ?[\.\d]+\)/,
+		HEX		: /^(#[\da-f]{3}|#[\da-f]{6})$/,
+		rgbaSplit:/\d+[, ?\.?\d+]+/,
 	};
 
 	var helpers = {
@@ -127,7 +126,7 @@
 	};
 
 	Color.prototype.toString = function(){
-		return this.toHex.apply(this, arguments);
+		return this.toHex.apply(this, arguments).toString();
 	};
 
 	w.Color = Color;
